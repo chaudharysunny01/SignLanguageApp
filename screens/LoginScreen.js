@@ -24,7 +24,7 @@ const LoginScreen = ({ setIsLoggedIn }) => {
     setLoading(true); 
 
     try {
-      const response = await fetch("http://10.10.200.201:3000/signin", {
+      const response = await fetch("http://10.10.211.49:3000/signin", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ const LoginScreen = ({ setIsLoggedIn }) => {
             Login
           </Button>
         )}
-        <Button
+        {/* <Button
           mode="text"
           style={styles.signUpButton}
           labelStyle={{ color: '#6C63FF' }} 
@@ -104,7 +104,7 @@ const LoginScreen = ({ setIsLoggedIn }) => {
           }}
         >
           Don't have an account? Sign Up
-        </Button>
+        </Button> */}
       </KeyboardAvoidingView>
     </View>
   );

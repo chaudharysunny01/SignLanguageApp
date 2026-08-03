@@ -50,7 +50,7 @@ const SignUpScreen = () => {
         body: JSON.stringify({
           email: trimmedEmail,
           password: trimmedPassword,
-          confirmPassword: trimmedConfirmPassword // Include confirmPassword
+          confirmPassword: trimmedConfirmPassword 
         })
       });
   
@@ -64,7 +64,7 @@ const SignUpScreen = () => {
           try {
             await AsyncStorage.setItem('token', data.token);
             console.log("Token saved:", data.token);
-            navigation.replace("Home");  // Ensure "Home" is the correct route name
+            navigation.replace("Home");  
           } catch (e) {
             console.log("Error storing token:", e);
             Alert.alert("Error", e.message);
@@ -129,7 +129,7 @@ const SignUpScreen = () => {
       <View style={styles.linkContainer}>
         <Text
           style={styles.linkText}
-          onPress={() => navigation.navigate("LoginScreen")}  // Ensure "LoginScreen" is the correct route name
+          onPress={() => navigation.navigate("LoginScreen")}  
         >
           Already have an account? 
           <Text style={styles.link}> Log in</Text>

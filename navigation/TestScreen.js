@@ -1,14 +1,16 @@
+// TestScreen.js
 import React, { useState } from 'react';
 import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import images from '../assets/imageMappings'; 
 import questions from '../assets/questions'; 
 
 const TestScreen = () => {
+    const navigation = useNavigation();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [inputValue, setInputValue] = useState('');
     const [feedback, setFeedback] = useState('');
     const [score, setScore] = useState(0);  
-
 
     const { image, answer } = questions[currentQuestionIndex];
 
@@ -22,9 +24,15 @@ const TestScreen = () => {
     };
 
     const handleNext = () => {
-        setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % questions.length);
-        setInputValue('');
-        setFeedback('');
+        const isLastQuestion = currentQuestionIndex === questions.length - 1;
+    
+        if (isLastQuestion) {
+          navigation.navigate("Progress", { score, totalQuestions: questions.length });
+        } else {
+          setCurrentQuestionIndex((prevIndex) => (prevIndex + 1) % questions.length);
+          setInputValue('');
+          setFeedback('');
+        }
     };
 
     return (
@@ -48,7 +56,6 @@ const TestScreen = () => {
             <TouchableOpacity style={styles.button} onPress={handleNext}>
                 <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
-            <Text style={styles.scoreText}>{setScore}</Text>
         </View>
     );
 };
@@ -58,14 +65,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f5f5f5',  
+        backgroundColor: '#f5f5f5',
         padding: 20,
     },
     scoreText: {
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 20,
-        color: '#007bff', 
+        color: '#007bff',
     },
     image: {
         width: 250,
@@ -73,7 +80,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         marginBottom: 20,
         borderRadius: 10,
-        shadowColor: '#000', 
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
@@ -82,23 +89,23 @@ const styles = StyleSheet.create({
         fontSize: 22,
         marginBottom: 20,
         fontWeight: 'bold',
-        color: '#333',  
+        color: '#333',
     },
     input: {
         width: '100%',
-        borderColor: '#007bff',  
+        borderColor: '#007bff',
         borderWidth: 1,
         padding: 15,
         marginBottom: 20,
         borderRadius: 8,
-        backgroundColor: '#fff',  
-        shadowColor: '#000',  
+        backgroundColor: '#fff',
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
     },
     button: {
-        backgroundColor: '#007bff',  
+        backgroundColor: '#007bff',
         padding: 15,
         borderRadius: 8,
         marginVertical: 10,
@@ -106,7 +113,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        color: '#fff',  
+        color: '#fff',
         fontSize: 16,
         fontWeight: 'bold',
     },
